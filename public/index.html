@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+      name="description"
+      content="A static cloud-hosted web app using the Environment Agency flood-monitoring JSON API."
+    >
+    <meta name="theme-color" content="#f6f8fb">
+    <title>Challenge B | UK Flood Station Monitor</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="app.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="app-header">
+      <a class="brand-link" href="./" aria-label="Cloud Challenge B home">
+        <span class="brand-mark" aria-hidden="true">CB</span>
+        <span>Cloud Challenge B</span>
+      </a>
+      <a class="source-link" href="https://environment.data.gov.uk/flood-monitoring/doc/reference" rel="noopener noreferrer">
+        API reference
+      </a>
+    </header>
+
+    <main class="app-shell">
+      <section class="search-panel" aria-labelledby="page-title">
+        <div>
+          <p class="kicker">Environment Agency JSON API</p>
+          <h1 id="page-title">UK Flood Station Monitor</h1>
+        </div>
+
+        <form class="search-form" id="station-search">
+          <label for="search-term">Place or station name</label>
+          <div class="search-row">
+            <input
+              id="search-term"
+              name="search"
+              type="search"
+              value="York"
+              autocomplete="off"
+              required
+            >
+            <button type="submit">Search</button>
+          </div>
+        </form>
+
+        <div class="quick-searches" aria-label="Quick searches">
+          <button type="button" data-query="York">York</button>
+          <button type="button" data-query="Oxford">Oxford</button>
+          <button type="button" data-query="Carlisle">Carlisle</button>
+          <button type="button" data-query="Exeter">Exeter</button>
+        </div>
+      </section>
+
+      <section class="status-strip" aria-live="polite">
+        <div>
+          <span class="metric-label">Stations</span>
+          <strong id="station-count">0</strong>
+        </div>
+        <div>
+          <span class="metric-label">Selected</span>
+          <strong id="selected-station">None</strong>
+        </div>
+        <div>
+          <span class="metric-label">Latest reading</span>
+          <strong id="latest-reading">Awaiting search</strong>
+        </div>
+      </section>
+
+      <div class="workspace-grid">
+        <section class="results-panel" aria-labelledby="results-title">
+          <div class="panel-heading">
+            <div>
+              <p class="kicker">Search results</p>
+              <h2 id="results-title">Monitoring stations</h2>
+            </div>
+            <span id="results-state" class="state-pill">Ready</span>
+          </div>
+          <div class="station-list" id="station-list"></div>
+        </section>
+
+        <section class="detail-panel" aria-labelledby="detail-title">
+          <div class="panel-heading">
+            <div>
+              <p class="kicker">Station detail</p>
+              <h2 id="detail-title">Readings</h2>
+            </div>
+            <button class="ghost-button" type="button" id="refresh-station" disabled>
+              Refresh
+            </button>
+          </div>
+
+          <div class="station-summary" id="station-summary">
+            <p class="empty-state">Search for a place, then select a station.</p>
+          </div>
+
+          <div class="visual-grid">
+            <div class="map-card" aria-labelledby="map-title">
+              <div class="map-header">
+                <span id="map-title">Approximate UK position</span>
+                <strong id="map-coordinates">No station</strong>
+              </div>
+              <div class="map-plot" id="map-plot" aria-hidden="true">
+                <span class="map-marker"></span>
+              </div>
+            </div>
+
+            <div class="chart-card" aria-labelledby="chart-title">
+              <div class="map-header">
+                <span id="chart-title">Recent water-level readings</span>
+                <strong id="chart-unit">No data</strong>
+              </div>
+              <div class="reading-chart" id="reading-chart"></div>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <caption>Recent API readings</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Date and time</th>
+                  <th scope="col">Value</th>
+                  <th scope="col">Measure</th>
+                </tr>
+              </thead>
+              <tbody id="reading-table">
+                <tr>
+                  <td colspan="3">No readings loaded.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <section class="request-log" aria-labelledby="request-log-title">
+        <div class="panel-heading">
+          <div>
+            <p class="kicker">Evidence</p>
+            <h2 id="request-log-title">API requests made by this page</h2>
+          </div>
+          <button class="ghost-button" type="button" id="clear-log">Clear</button>
+        </div>
+        <ol id="api-log"></ol>
+      </section>
+    </main>
+  </body>
+</html>
