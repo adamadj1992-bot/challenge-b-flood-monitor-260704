@@ -27,10 +27,5 @@ firebase login --reauth
 firebase deploy --only hosting --project challenge-b-flood-260704
 ```
 
-## Submission evidence
 
-Capture screenshots from the deployed public URL showing:
 
-- Search results after entering a place such as `York` or `Carlisle`
-- Station detail after clicking a station, showing readings, chart, table, and API request log
-- Browser address bar showing a public Firebase/Netlify URL, not `localhost`
